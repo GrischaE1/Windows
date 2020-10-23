@@ -1,0 +1,203 @@
+<Delete>
+<CmdID>1</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.GetHelp_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>2</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.Getstarted_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>4</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.Microsoft3DViewer_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>5</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>6</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.MicrosoftSolitaireCollection_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>9</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.SkypeApp_kzf8qxf38zg5c</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>10</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WindowsAlarms_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>11</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WindowsCamera_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>12</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WindowsFeedbackHub_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>13</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WindowsMaps_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>14</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>15</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.Xbox.TCUI_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>16</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.XboxApp_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>17</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.XboxGameOverlay_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>18</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.XboxGamingOverlay_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>19</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.YourPhone_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>20</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.ZuneVideo_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>21</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>22</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.MSPaint_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>23</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.Office.OneNote_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>24</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.MixedReality.Portal_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>25</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.ScreenSketch_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>26</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.XboxIdentityProvider_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>27</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.XboxSpeechToTextOverlay_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>28</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/microsoft.windowscommunicationsapps_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>29</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.ZuneMusic_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>30</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.People_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>31</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.BingWeather_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
+<Delete>
+<CmdID>32</CmdID>
+<Item>
+<Target>   <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.Windows.Photos_8wekyb3d8bbwe</LocURI>
+</Target>
+</Item>
+</Delete>
