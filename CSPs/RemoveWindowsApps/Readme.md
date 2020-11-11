@@ -1,22 +1,21 @@
 
 For Windows 1909 use:
-Device:
-AppRemoveDevice.xml
 
-User:
-AppRemoveUser1909.xml
+Device: AppRemoveDevice.xml
 
-For Windows 2004use:
-Device:
-AppRemoveDevice.xml
+User:AppRemoveUser1909.xml
 
-User:
-AppRemoveUser2004.xml
+
+For Windows 2004 use:
+
+Device: AppRemoveDevice.xml
+
+User: AppRemoveUser2004.xml
+
 
 
 For Windows 20H2 use:
-Device:
-AppRemoveDevice20H2.xml
 
-User:
-AppRemoveUser20H2.xml
+Device: AppRemoveDevice20H2.xml
+
+User: AppRemoveUser20H2.xml
