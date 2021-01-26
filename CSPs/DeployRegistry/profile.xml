@@ -1,0 +1,8 @@
+<wap-provisioningdoc id="1164DF07-F217-449B-95F8-FB85A34D3CA5" name="customprofile">/
+    <characteristic type="com.airwatch.winrt.registryoperation" uuid="4fa91319-eac0-4a16-9d10-093ba845b698">
+        <parm RegistryPath="HKCU\SOFTWARE\Test\FakeApp" Action="Replace">
+            <Value Name="SetupURL" Data="fakeapp.com" Type="String" />
+            <Value Name="FakeAppFeatureFlag" Data="4a" Type="REG_BINARY" />
+        </parm>
+    </characteristic>
+</wap-provisioningdoc>
