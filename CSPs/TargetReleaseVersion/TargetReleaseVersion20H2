@@ -1,13 +1,11 @@
-<Replace>
-  <CmdID>e10c5007-697c-4112-9ba4-d324300c8e32</CmdID>
-  <Item>
-    <Target>
-        <LocURI>./Device/Vendor/MSFT/Policy/Config/Update/TargetReleaseVersion</LocURI>
-      </Target>
-    <Meta>
-      <Format xmlns="syncml:metinf">chr</Format>
-      <Type>text/plain</Type>
-    </Meta>
-    <Data>2009</Data>
-  </Item>
-</Replace>
+<wap-provisioningdoc id="d2374172-212c-4025-8bde-8f0281182f1b" name="customprofile">
+  <characteristic type="com.airwatch.winrt.powershellcommand" uuid="1230b301-bc01-4ff8-b5d7-3fdf124274dd">
+    <parm name="PowershellCommand" value="Invoke-Command -ScriptBlock {if(!(Test-Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate')){New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate'}}"/>
+  </characteristic>
+<characteristic type="com.airwatch.winrt.powershellcommand" uuid="98624590-5521-4f01-887d-a1e956d04374">
+    <parm name="PowershellCommand" value="Invoke-Command -ScriptBlock {Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name TargetReleaseVersion -value '00000001' -Type DWord -Force}"/>
+  </characteristic>
+<characteristic type="com.airwatch.winrt.powershellcommand" uuid="7e84c2ee-b9cc-4fed-9f22-d9cf218e5f33">
+    <parm name="PowershellCommand" value="Invoke-Command -ScriptBlock {Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name TargetReleaseVersionInfo -value '20H2' -Type String -Force}"/>
+  </characteristic>
+</wap-provisioningdoc>
