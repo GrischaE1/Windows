@@ -1,4 +1,4 @@
-﻿##########################################################################################
+##########################################################################################
 # You running this script/function means you will not blame the author(s) if this breaks your stuff. 
 # This script/function is provided AS IS without warranty of any kind. Author(s) disclaim all 
 # implied warranties including, without limitation, any implied warranties of merchantability or of 
@@ -23,9 +23,9 @@
 # - This Script will provide you a granual control over Window Updates - especially if you using Windows Update for Business
 # - This includes
 #     1. Download updates at any time, to reduce the installation time
-#     2. Install updates during a weekly maintanance window
+#     2. Install updates during a weekly Maintenace Window
 #     3. Download and install updates
-# - Updates that require a reboot, will reboot during maintanance window - but will not automatically reboot if no MW is configured
+# - Updates that require a reboot, will reboot during Maintenace Window - but will not automatically reboot if no MW is configured
 # - Registry values in the "HKLM:\SOFTWARE\Policies\Custom\Windows Update" hive are used to configure the script
 #
 # Caution
@@ -35,7 +35,7 @@
 # Registry values:
 # Name            Value                          Description
 # DirectDownload 
-#                 True                           Will download update independend of the maintanance window
+#                 True                           Will download update independend of the Maintenace Window
 #                 False                          Will not start download before installation
 #
 # HiddenUpdates
@@ -51,8 +51,8 @@
 #
 #
 #
-# MaintanaceWindow
-#                 True                           Will install updates only during maintanance window
+# MaintenaceWindow
+#                 True                           Will install updates only during Maintenace Window
 #                 False                          Will install updates whenever possible
 # 
 #
@@ -88,13 +88,84 @@ param(
 	)
 
 ##########################################################################################
+#                                    Functions
 
+function Test-MaintenaceWindow {
+    
+    $RegSettings  =  Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate'
+	
+
+    #Get current time
+    $CurrentDate = Get-Date
+    $Day = $CurrentDate.DayOfWeek.value__
+    $Hour = Get-Date -Format HH 
+    $Minute = Get-Date -Format mm
+
+    #Get start time
+    $MWStartHour = $RegSettings.MWStartTime.Substring(0,2)
+    $MWStartMinute = $RegSettings.MWStartTime.Remove(0,3)
+    
+    #Get stop time
+    $MWStopHour = $RegSettings.MWStopTime.Substring(0,2)
+    $MWStopMinute = $RegSettings.MWStopTime.Remove(0,3)
+
+    #Check if installation day was set - if not, updates will be installed everyday 
+    if($RegSettings.MWDay)
+    {
+      $TagetDay = $RegSettings.mwday
+    }
+    else
+    {
+      $TagetDay = $day
+    }
+
+    #Check if current time is in Maintenace Window
+    Clear-Variable IsInMaintenaceWindow -Force -ErrorAction SilentlyContinue
+    if( $day -eq $TagetDay)
+    {
+        if($Hour -ge $MWStartHour -and $hour -le $MWStopHour)
+        {
+            if((($hour -eq $MWStartHour -and $Minute -gt $MWStartMinute) -and ($hour -eq $MWStopHour -and $Minute -lt $MWStopMinute)))
+            {        
+                $IsInMaintenaceWindow = $true
+            }
+            if($hour -ge $MWStartHour -and $hour -lt $MWStopHour)
+            {
+                $IsInMaintenaceWindow = $true
+            }
+            if(($hour -ge $MWStartHour -and $hour -eq $MWStopHour) -and $Minute -lt $MWStopMinute)
+            {
+                $IsInMaintenaceWindow = $true
+            }
+           if(!$IsInMaintenaceWindow)
+           {
+                $IsInMaintenaceWindow = $false
+           }
+        }else {$IsInMaintenaceWindow = $false}
+    }else {$IsInMaintenaceWindow = $false}
+    return $IsInMaintenaceWindow
+
+}
+
+function Test-PendingReboot {
+    $PendingRestart = $false
+    if (Get-ChildItem "HKLM:\Software\Microsoft\Windows\CurrentVersion\Component Based Servicing\RebootPending" -EA Ignore) { $PendingRestart = $true }
+    if (Get-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\RebootRequired" -EA Ignore) { $PendingRestart = $true }
+    if (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager" -Name PendingFileRenameOperations -EA Ignore) { $PendingRestart = $true }
+
+    if($PendingRestart -eq $true)
+    {
+        shutdown.exe /r /f /t 120
+
+        Start-Sleep -Seconds 120
+    }
+}
 
 ##########################################################################################
 #                                   Define varibales
 
 #define the log folder if needed - otherwise delete it or set it to ""
-if$(LogPath){$Log = $LogPath}
+if($LogPath){$Log = $LogPath}
 
 if($Log){
 if((Test-Path (Split-Path -Parent $Log)) -eq $false){New-Item (Split-Path -Parent $Log) -ItemType Directory}
@@ -163,18 +234,19 @@ Import-Module PSWindowsUpdate
   if($Settings.UseMicrosoftUpdate -eq $true)
   {
     #Add Microsoft Update as Update provider
-    Add-WUServiceManager -ServiceID "7971f918-a847-4430-9279-4a52d1efe18d" -AddServiceFlag 7 -Confirm:$false | Out-Null
-    $AllUpdates = Get-WindowsUpdate -MicrosoftUpdate
+    Add-WUServiceManager -ServiceID "7971f918-a847-4430-9279-4a52d1efe18d" -AddServiceFlag 7 -Confirm:$false  | Out-Null
+    $AllUpdates = Get-WindowsUpdate -MicrosoftUpdate -IgnoreReboot
   }
   else
   {
       #Get all updates with the configured update source
-      $AllUpdates = Get-WindowsUpdate
+      $AllUpdates = Get-WindowsUpdate -IgnoreReboot
   }
 
   #If Download is independent of installation - Download all Updates
   If($Settings.DirectDownload -eq $True)
   {
+    Write-Output "Starting Download"
     #get all updates that are not downloaded
     $NotDonwloadedUpdates = $AllUpdates | Where-Object {$_.Status -notlike "*D*"}
     foreach($Update in $NotDonwloadedUpdates)
@@ -184,11 +256,11 @@ Import-Module PSWindowsUpdate
         #Use Microsoft Update as update source
         if($Settings.UseMicrosoftUpdate -eq $true)
         {
-            $result = Get-WindowsUpdate -Download -KBArticleID $UpdateKB -MicrosoftUpdate -Confirm:$false
+            $result = Get-WindowsUpdate -Download -KBArticleID $UpdateKB -MicrosoftUpdate -Confirm:$false -IgnoreReboot
         }
         else
         {
-            $result = Get-WindowsUpdate -Download -KBArticleID $UpdateKB -Confirm:$false
+            $result = Get-WindowsUpdate -Download -KBArticleID $UpdateKB -Confirm:$false -IgnoreReboot
         }
 
         #Check if download was successfull
@@ -202,11 +274,11 @@ Import-Module PSWindowsUpdate
             #Use Microsoft Update as update source
             if($Settings.UseMicrosoftUpdate -eq $true)
             {
-                $result = Get-WindowsUpdate -ForceDownload -KBArticleID $UpdateKB -MicrosoftUpdate -Confirm:$false
+                $result = Get-WindowsUpdate -ForceDownload -KBArticleID $UpdateKB -MicrosoftUpdate -Confirm:$false -IgnoreReboot
             }
             else
             {
-                $result = Get-WindowsUpdate -ForceDownload -KBArticleID $UpdateKB -Confirm:$false
+                $result = Get-WindowsUpdate -ForceDownload -KBArticleID $UpdateKB -Confirm:$false -IgnoreReboot
             }
             
             #Check again download status
@@ -220,42 +292,21 @@ Import-Module PSWindowsUpdate
             }
         }
     }
-   
+    Write-Output "Download finished"
   }
   
 
   #Install Updates
-  #Check if Maintanance Window is enabled
-  if($Settings.MaintanaceWindow -eq $true)
+  #Check if Maintenace Window is enabled
+  if($Settings.MaintenaceWindow -eq $true)
   {
-    #Get current time
-    $CurrentDate = Get-Date
-    $Day = $CurrentDate.DayOfWeek.value__
-    $Hour = Get-Date -Format HH 
-    $Minute = Get-Date -Format mm
+  
+    Write-Output "Maintenace Window detected"
+    if([bool](Test-MaintenaceWindow) -eq $true)
+    {
+        Write-Output "Running during Maintenace Window"
+        Test-PendingReboot
 
-    #Get start time
-    $MWStartHour = $Settings.MWStartTime.Substring(0,2)
-    $MWStartMinute = $Settings.MWStartTime.Remove(0,3)
-    
-    #Get stop time
-    $MWStopHour = $Settings.MWStopTime.Substring(0,2)
-    $MWStopMinute = $Settings.MWStopTime.Remove(0,3)
-
-    #Check if installation day was set - if not, updates will be installed everyday 
-    if($Settings.MWDay)
-    {
-      $TagetDay = $Settings.mwday
-    }
-    else
-    {
-      $TagetDay = $day
-    }
-   
-    #Check if current time is in maintanance window
-    if( $day -eq $TagetDay -and (($Hour -ge $MWStartHour -and $Minute -ge $MWStartMinute) -and ($Hour -lt $MWStopHour -or ($Hour -eq $MWStopHour -and  $Minute -lt $MWStopMinute))) )
-    {
-       
         #Force to use Microsoft update - this will also overwrite current WSUS settings
         if($Settings.UseMicrosoftUpdate -eq $true)
         {
@@ -263,17 +314,25 @@ Import-Module PSWindowsUpdate
             foreach($Update in $InstallableUpdates)
             {
                 $UpdateKB = $update.KB
-        
-                $Installation =  Install-WindowsUpdate -Install -KBArticleID $UpdateKB -Confirm:$false -MicrosoftUpdate -AutoReboot
                 
-                if($result.result -contains "Installed")
+                if([bool](Test-MaintenaceWindow) -eq $true)
                 {
-                    "$($UpdateKB) installed"
+                    $Installation =  Install-WindowsUpdate -Install -KBArticleID $UpdateKB -Confirm:$false -MicrosoftUpdate -IgnoreReboot
+                    
+                    if($Installation.result -contains "Installed")
+                    {
+                        "$($UpdateKB) installed"
+                    }
+                    else
+                    {
+                        "$($UpdateKB) NOT installed"
+                    }
                 }
-                else
-                {
-                    "$($UpdateKB) NOT installed"
-                }
+                else {break}
+            }
+            if([bool](Test-MaintenaceWindow) -eq $true)
+            {
+                Test-PendingReboot
             }
         }
         #Use configured settings
@@ -284,24 +343,33 @@ Import-Module PSWindowsUpdate
             {
                 $UpdateKB = $update.KB
         
-                $Installation =  Install-WindowsUpdate -Install -KBArticleID $UpdateKB -Confirm:$false -AutoReboot
-                
-                if($Installation.result -contains "Installed")
+                if([bool](Test-MaintenaceWindow) -eq $true)
                 {
-                    "$($UpdateKB) installed"
+                    $Installation =  Install-WindowsUpdate -Install -KBArticleID $UpdateKB -Confirm:$false -MicrosoftUpdate -IgnoreReboot
+                    
+                    if($Installation.result -contains "Installed")
+                    {
+                        "$($UpdateKB) installed"
+                    }
+                    else
+                    {
+                        "$($UpdateKB) NOT installed"
+                    }
                 }
-                else
-                {
-                    "$($UpdateKB) NOT installed"
-                }
-             }        
-          }
-          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\Windows Update' -Name 'LastInstallationDate' -Value $(Get-Date -Format "dd/MM/yyyy HH:mm")
+                else {break}
+            }
+            if([bool](Test-MaintenaceWindow) -eq $true)
+            {
+                Test-PendingReboot
+            }       
+        }
+          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate' -Name 'LastInstallationDate' -Value $(Get-Date -Format "dd/MM/yyyy HH:mm")
     }
   }
-  #If no Maintanance Window is configured, just install the updates at any time
+  #If no maintenance window is configured, just install the updates at any time
   else
   {
+        Write-Output "Starting installation without Maintenace Window"
         if($Settings.UseMicrosoftUpdate -eq $true)
         {
             $InstallableUpdates = Get-WindowsUpdate -MicrosoftUpdate
@@ -340,7 +408,7 @@ Import-Module PSWindowsUpdate
                 }
             }
         }
-        Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\Windows Update' -Name 'LastInstallationDate' -Value $(Get-Date -Format "dd/MM/yyyy HH:mm")
+        Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate' -Name 'LastInstallationDate' -Value $(Get-Date -Format "dd/MM/yyyy HH:mm")
   }
 
 Write-Output "Stop Windows Update on $(Get-Date -Format "dd/MM/yyyy HH:mm")"
