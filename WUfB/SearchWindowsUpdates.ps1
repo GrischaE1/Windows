@@ -15,7 +15,7 @@
 
 ##########################################################################################
 # Name: WindowsUpdate.ps1
-# Version: 0.1
+# Version: 0.2
 # Date: 18.05.2021
 # Created by: Grischa Ernst gernst@vmware.com
 #
@@ -76,6 +76,7 @@
 ##########################################################################################
 #                                    Changelog 
 #
+# 0.2 - changed reboot behavior and fixed Maintenance Window detection + small bug fixes
 # 0.1 - Inital creation
 ##########################################################################################
 
