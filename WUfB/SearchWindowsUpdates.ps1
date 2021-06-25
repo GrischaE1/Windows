@@ -76,6 +76,7 @@
 ##########################################################################################
 #                                    Changelog 
 #
+# 0.3 - added multi day Maintenance Window support
 # 0.2 - changed reboot behavior and fixed Maintenance Window detection + small bug fixes
 # 0.1 - Inital creation
 ##########################################################################################
@@ -113,7 +114,9 @@ function Test-MaintenaceWindow {
     #Check if installation day was set - if not, updates will be installed everyday 
     if($RegSettings.MWDay)
     {
-      $TagetDay = $RegSettings.mwday
+      if($RegSettings.MWDay -like "*,*"){$TagetDay = $RegSettings.mwday.Split(",")}
+      else {$TagetDay = $RegSettings.mwday}
+        
     }
     else
     {
@@ -122,30 +125,41 @@ function Test-MaintenaceWindow {
 
     #Check if current time is in Maintenace Window
     Clear-Variable IsInMaintenaceWindow -Force -ErrorAction SilentlyContinue
-    if( $day -eq $TagetDay)
-    {
-        if($Hour -ge $MWStartHour -and $hour -le $MWStopHour)
-        {
-            if((($hour -eq $MWStartHour -and $Minute -gt $MWStartMinute) -and ($hour -eq $MWStopHour -and $Minute -lt $MWStopMinute)))
-            {        
-                $IsInMaintenaceWindow = $true
-            }
-            if($hour -ge $MWStartHour -and $hour -lt $MWStopHour)
-            {
-                $IsInMaintenaceWindow = $true
-            }
-            if(($hour -ge $MWStartHour -and $hour -eq $MWStopHour) -and $Minute -lt $MWStopMinute)
-            {
-                $IsInMaintenaceWindow = $true
-            }
-           if(!$IsInMaintenaceWindow)
-           {
-                $IsInMaintenaceWindow = $false
-           }
-        }else {$IsInMaintenaceWindow = $false}
-    }else {$IsInMaintenaceWindow = $false}
-    return $IsInMaintenaceWindow
+    $DayIsInMW = $false
 
+    foreach($MWDay in $TagetDay)
+    {
+       
+        if( $day -eq $MWDay)
+        {
+            $DayIsInMW = $true
+        }   
+        
+        if($DayIsInMW -eq $true)
+        {
+            if($Hour -ge $MWStartHour -and $hour -le $MWStopHour)
+            {
+                if((($hour -eq $MWStartHour -and $Minute -gt $MWStartMinute) -and ($hour -eq $MWStopHour -and $Minute -lt $MWStopMinute)))
+                {        
+                    $IsInMaintenaceWindow = $true
+                }
+                if($hour -ge $MWStartHour -and $hour -lt $MWStopHour)
+                {
+                    $IsInMaintenaceWindow = $true
+                }
+                if(($hour -ge $MWStartHour -and $hour -eq $MWStopHour) -and $Minute -lt $MWStopMinute)
+                {
+                    $IsInMaintenaceWindow = $true
+                }
+            if(!$IsInMaintenaceWindow)
+            {
+                    $IsInMaintenaceWindow = $false
+            }
+            }else {$IsInMaintenaceWindow = $false}
+        }else {$IsInMaintenaceWindow = $false}
+      
+    }
+    return $IsInMaintenaceWindow
 }
 
 function Test-PendingReboot {
