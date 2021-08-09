@@ -169,9 +169,9 @@ function Test-PendingReboot {
 
     if($PendingRestart -eq $true)
     {
-        shutdown.exe /r /f /t 120
+        Write-Output "Pending Restart - Device will reboot"
 
-        Start-Sleep -Seconds 120
+	shutdown.exe /r /f /t 120
     }
 }
 
