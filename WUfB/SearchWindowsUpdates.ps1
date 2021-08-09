@@ -15,7 +15,7 @@
 
 ##########################################################################################
 # Name: WindowsUpdate.ps1
-# Version: 0.2
+# Version: 0.3
 # Date: 18.05.2021
 # Created by: Grischa Ernst gernst@vmware.com
 #
