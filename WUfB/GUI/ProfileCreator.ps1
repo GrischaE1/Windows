@@ -13,8 +13,8 @@
 ##########################################################################################
 
 ##########################################################################################
-# Name: ProfileCreator.ps1
-# Version: 0.3
+# Name: WindowsUpdate.ps1
+# Version: 0.2
 # Date: 18.05.2021
 # Created by: Grischa Ernst gernst@vmware.com
 #
@@ -24,7 +24,6 @@
 ##########################################################################################
 #                                    Changelog 
 #
-# 0.3 - Bug fix for multi day selection
 # 0.2 - Added multi day selection for MW
 # 0.1 - Inital creation
 ##########################################################################################
@@ -65,7 +64,7 @@ $ComboBoxDay_SelectedIndexChanged = {
         {
             $wshell.Popup("Start time has to be greater then end time",0,"Error",16)
         }
-        if(!$MWDay)
+        if(!$MWDay -and $ListBoxDay.enabled -eq $true)
         {
             $wshell.Popup("Please select day",0,"Error",16)
         }
@@ -107,7 +106,7 @@ $ComboBoxDay_SelectedIndexChanged = {
                 }
             }
         }
-        $selectedDays | Out-File C:\Temp\Validation1.txt -force
+
     
     
     
@@ -115,6 +114,7 @@ $ComboBoxDay_SelectedIndexChanged = {
     $guid1 = [guid]::NewGuid()
     $guid2 = [guid]::NewGuid()
     
+    #$selectedDays = "1,2,3,4"
     
     
     Write-host "$($DateTimePickerStart.Value.ToString("HH:mm"))"
@@ -125,6 +125,7 @@ $ComboBoxDay_SelectedIndexChanged = {
     if($MWStartTime -eq "00:00" -and $MWStopTime -eq "00:00"){$MWStartTime = '&quot;&quot;' 
     $MWStopTime = '&quot;&quot;'}
     if($selectedDays -eq "none"){$selectedDays = '&quot;&quot;'}
+    else{$selectedDays = "&quot;$($selectedDays)&quot;"}
     if($MaintenaceWindow -eq "false"){
         $selectedDays = '&quot;&quot;'
         $MWStartTime = '&quot;&quot;'
@@ -142,7 +143,7 @@ $ComboBoxDay_SelectedIndexChanged = {
     New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate -Name UnHiddenUpdates -PropertyType String -Value  $($UnHiddenUpdates);
     New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate -Name LastInstallationDate -PropertyType String -Value &quot;&quot;;
     New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate -Name MaintenaceWindow -PropertyType String -Value $($MaintenaceWindow);
-    New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate -Name MWDay -PropertyType String -Value &quot;$($selectedDays)&quot;;
+    New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate -Name MWDay -PropertyType String -Value $($selectedDays);
     New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate -Name MWStartTime -PropertyType String -Value  $($MWStartTime);
     New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate -Name MWStopTime -PropertyType String -Value $($MWStopTime);
     New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate -Name UseMicrosoftUpdate -PropertyType String -Value $($UseMicrosoftUpdate   )  
