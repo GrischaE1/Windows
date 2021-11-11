@@ -11,3 +11,7 @@
 ## For Windows 20H2 use:
 * Device: AppRemoveDevice20H2.xml
 * User: AppRemoveUser20H2.xml
+
+## For Windows 21H1 use:
+* Device: AppRemoveDevice20H2.xml
+* User: AppRemoveUser20H2.xml
