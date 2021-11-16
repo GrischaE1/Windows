@@ -66,7 +66,7 @@ foreach($app in $apps)
    $temp = "<Delete>
         <CmdID>$($guid.Guid)</CmdID>
                $($RemoveApps)         
-    </Delete>
+</Delete>
         "
 
     #Export to XML
