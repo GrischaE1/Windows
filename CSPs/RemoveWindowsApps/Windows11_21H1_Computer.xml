@@ -1,336 +1,425 @@
-<Delete>
-        <CmdID>7a46c3a8-7bb5-4caf-b94a-19151ad1181b</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>a10813d2-6e6c-45aa-ab14-c4f9c255aee9</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/MicrosoftTeams_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>d5e6c604-ebc6-4156-9296-6ddc292bb471</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.ZuneVideo_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>cafec093-8494-49ef-9b2b-a192b05a6888</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.ZuneMusic_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>c7945ce5-7278-4fd0-8ad7-3cf90abc14da</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.YourPhone_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>c8d65423-d6ab-4430-a135-3697cd3322e7</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.XboxSpeechToTextOverlay_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>c879bc3a-6994-408c-b165-67bf94630369</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.XboxIdentityProvider_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>ed6ee14a-c6a8-43f3-b3f0-10783b99240d</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.XboxGamingOverlay_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>84d75242-e670-45b2-a581-67d1971d8ec2</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.XboxGameOverlay_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>14ec179a-691f-434d-beda-37027de6403f</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.Xbox.TCUI_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>cd1b4c7f-1a9f-456f-9c5a-79c84b0f4613</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WindowsTerminal_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>01d7f18c-384f-4399-a83f-e67d98181704</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WindowsStore_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>2896bee8-7930-496d-9bd2-43c900b2dc6b</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>ab01ac09-ef18-4018-a0d6-9e4c2ea30941</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WindowsNotepad_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>427ea649-6ade-467d-8fa5-870ba8852787</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WindowsMaps_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>9ba07913-4e25-48c6-85dc-7f3ac79bb529</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WindowsFeedbackHub_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>723caf3c-6a66-46c8-ac49-257f6fb000c2</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/microsoft.windowscommunicationsapps_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>be191074-e1df-4bdd-bf61-88c12b9ad7ef</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WindowsCamera_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>bf29327c-991f-4296-bdf3-1cb82f44f5cd</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WindowsCalculator_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>5f4f8701-0b0f-4c77-9952-6ae875e77f24</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WindowsAlarms_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>c6a24ca1-dfe0-45a0-9bd0-d630d0425377</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.Windows.Photos_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>8f7a50d5-cf45-40cd-b1f5-17886267be8e</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WebpImageExtension_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>e8bf1047-12c0-4554-a705-0caf026be9f6</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.WebMediaExtensions_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>3e97292d-16e0-479d-a2a2-9b7da7618466</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.VP9VideoExtensions_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>5a8ec0de-e8b1-4db8-8bd7-f0a48dc14724</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.Todos_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>d5bcfb91-0a3d-4c69-90d7-c09e07de9956</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.StorePurchaseApp_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>1c3f0744-6ae9-4e2f-a8c2-257c305b12a9</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.ScreenSketch_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>414b74d2-34f1-4b1d-869b-1e11739636e1</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.PowerAutomateDesktop_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>e94d5a2a-9c8e-4bd1-a026-e080be1d54e6</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.People_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>cd6736f4-1cdb-4d87-8f24-c818867ac834</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.Paint_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>7d7cf16c-8d74-4ee5-9b5a-efcce5384ea7</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.OneDriveSync_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>d7f6a27a-09e5-40a3-a4f0-c5f674d8ca92</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>817652bb-f886-4200-b269-fea1b706599d</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.MicrosoftSolitaireCollection_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>448c936b-e901-4c02-bb5a-9e2d8a718c4c</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>a14a3398-0541-4e27-8f94-a5ceb09b5a4b</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.MicrosoftEdge.Stable_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>83526f52-f9f9-4fe0-b0c2-8e4383e11336</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.HEIFImageExtension_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>85097b50-407d-4f50-970e-03ec83f7810e</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.Getstarted_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>83be6bc9-a57a-4317-9cbc-f2e6979e046a</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.GetHelp_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>6b7fb043-78b1-4eb6-8dad-cad11b805f9c</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.GamingApp_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>96558b58-2171-4813-b997-1c634a0abf95</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.BingWeather_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>f4c7947f-0f50-471d-8130-83b71c45705e</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.BingNews_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
-        <Delete>
-        <CmdID>c22141d5-72ad-4686-a694-7a5e4f4c1395</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/Microsoft.549981C3F5F10_8wekyb3d8bbwe</LocURI>
-            </Target>
-        </Item>
-    </Delete>
+<Exec>
+   <CmdID>741874c3-0789-4e2c-b099-e5565801c3ea</CmdID>
+    
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.549981C3F5F10_2.2106.2807.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.BingNews_4.7.28001.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.BingWeather_4.9.2002.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+              
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.GamingApp_2021.427.138.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.GetHelp_10.2008.32311.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.Getstarted_10.2.41172.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.HEIFImageExtension_1.0.40978.0_x64__8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.MicrosoftEdge.Stable_90.0.818.66_neutral__8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.MicrosoftOfficeHub_18.2104.12721.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.MicrosoftSolitaireCollection_4.6.3102.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.MicrosoftStickyNotes_4.1.2.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.Paint_10.2104.17.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.People_2020.901.1724.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.PowerAutomateDesktop_10.0.561.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.ScreenSketch_2021.2109.37.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+               
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.StorePurchaseApp_12008.1001.113.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.Todos_2.33.33351.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.UI.Xaml.2.4_2.42007.9001.0_x64__8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.VCLibs.140.00_14.0.29231.0_x64__8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.VP9VideoExtensions_1.0.41182.0_x64__8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.WebMediaExtensions_1.0.40831.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.WebpImageExtension_1.0.32731.0_x64__8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.Windows.Photos_21.21030.25003.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.WindowsCalculator_2020.2012.21.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.WindowsCamera_2020.503.58.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="microsoft.windowscommunicationsapps_16005.12827.20400.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.WindowsFeedbackHub_2021.427.1821.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.WindowsMaps_2021.2012.10.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.WindowsNotepad_10.2102.13.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.WindowsSoundRecorder_2021.2012.41.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.WindowsStore_22110.1401.15.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.WindowsTerminal_2021.226.1915.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.Xbox.TCUI_1.23.28002.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.XboxGameOverlay_1.46.11001.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.XboxGamingOverlay_2.50.24002.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.XboxIdentityProvider_12.50.6001.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.XboxSpeechToTextOverlay_1.17.29001.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.YourPhone_2019.430.2026.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.ZuneMusic_2019.21012.10511.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="Microsoft.ZuneVideo_2019.21012.10511.0_neutral_~_8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="MicrosoftTeams_21302.202.1065.6968_x64__8wekyb3d8bbwe" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+   <Item>
+      <Target>
+         <LocURI>./Device/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/RemovePackage</LocURI>
+      </Target>
+      <Meta><Format xmlns="syncml:metinf">xml</Format></Meta>
+      <Data>
+         <Package Name="MicrosoftWindows.Client.WebExperience_421.20045.455.0_neutral_~_cw5n1h2txyewy" RemoveForAllUsers="1" />
+      </Data>
+   </Item>
+        
+</Exec>
+
