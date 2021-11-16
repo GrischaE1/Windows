@@ -39,34 +39,40 @@
 # User profile - will uninstall the app for the current user
 
 
+
 $inputfile = "C:\Temp\Windows11_21H2_Get-AppxPackage.txt"
 
 $Apps = Get-Content $inputfile
 
-Clear-Variable Temp,RemoveApp -Force -ErrorAction SilentlyContinue
+Clear-Variable Temp,NewApp,RemoveApps -Force -ErrorAction SilentlyContinue
+
 
 foreach($app in $apps)
 {
-    $guid = [guid]::NewGuid()
+  
+  $NewApp =  "             
+    <Item>
+       <Target>   
+            <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/$($app)</LocURI>
+       </Target>
+    </Item>
+  "
+  $RemoveApps += $NewApp
 
-    $RemoveApp = "<Delete>
+}
+
+  $guid = [guid]::NewGuid()
+
+   $temp = "<Delete>
         <CmdID>$($guid.Guid)</CmdID>
-        <Item>
-            <Target>   
-                <LocURI>./User/Vendor/MSFT/EnterpriseModernAppManagement/AppManagement/AppStore/$($app)</LocURI>
-            </Target>
-        </Item>
+               $($RemoveApps)         
     </Delete>
         "
 
-    $temp += $RemoveApp
-
-}
     #Export to XML
 
     $OutPut = $ExecutionContext.InvokeCommand.ExpandString($temp)
     $OutPut  | Out-File "C:\Temp\WindowsRemoveApps_User.xml" -Force
-
 
 
 
