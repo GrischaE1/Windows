@@ -1,0 +1,13 @@
+<Replace>
+  <CmdID>e10c5007-697c-4112-9ba4-d324300c8e30</CmdID>
+  <Item>
+    <Target>
+        <LocURI>./Device/Vendor/MSFT/Policy/Config/Update/TargetReleaseVersion</LocURI>
+      </Target>
+    <Meta>
+      <Format xmlns="syncml:metinf">chr</Format>
+      <Type>text/plain</Type>
+    </Meta>
+    <Data>1909</Data>
+  </Item>
+</Replace>
