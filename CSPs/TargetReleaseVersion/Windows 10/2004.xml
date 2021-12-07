@@ -1,0 +1,23 @@
+<Replace>
+  <CmdID>29890593-13bd-47e5-a387-086c571d75ff</CmdID>
+  <Item>
+    <Target>
+        <LocURI>./Device/Vendor/MSFT/Policy/Config/Update/ProductVersion</LocURI>
+      </Target>
+    <Meta>
+      <Format xmlns="syncml:metinf">chr</Format>
+      <Type>text/plain</Type>
+    </Meta>
+    <Data>Windows 10</Data>
+  </Item>
+  <Item>
+    <Target>
+        <LocURI>./Device/Vendor/MSFT/Policy/Config/Update/TargetReleaseVersion</LocURI>
+      </Target>
+    <Meta>
+      <Format xmlns="syncml:metinf">chr</Format>
+      <Type>text/plain</Type>
+    </Meta>
+    <Data>2004</Data>
+  </Item>
+</Replace>
