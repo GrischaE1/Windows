@@ -14,3 +14,6 @@ Also you would need to remove the following code from the CSP:
   </Item>
   
   All devices with 2004 or later can use the CSP as they are!
+
+For more information please read:
+https://docs.microsoft.com/en-us/windows/client-management/mdm/policy-csp-update#update-productversion
