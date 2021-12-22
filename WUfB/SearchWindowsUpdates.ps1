@@ -207,7 +207,7 @@ function Test-UpdateInstallation {
  
     if ($Installationresult -contains "Installed" -and $VerifyKBInstallation) {
         "$($KBNumber) installed"
-        New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs' -PropertyType "String" -Name "$($KBNumber) Status" -Value "True" -Force | Out-Null
+        New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs' -PropertyType "String" -Name "$($KBNumber) Status" -Value "Installed" -Force | Out-Null
         New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs' -PropertyType "String" -Name "$($KBNumber) Date" -Value $installationtime -Force | Out-Null
     }
     else {
