@@ -31,6 +31,6 @@ $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -MultipleInstances 
 Register-ScheduledTask -TaskName "Search Windows Updates" -Action $action -Trigger $trigger -Principal $user  -Settings $settings –Force
 
 
-New-Item -Path C:\Windows -Name 'CustomUpdate' -ItemType Directory -Force
+New-Item -Path $InstallDir -Name 'CustomUpdate' -ItemType Directory -Force
 Copy-Item "$PSScriptRoot\SearchWindowsUpdates.ps1" -Destination $InstallDir -Force
 Copy-Item "$PSScriptRoot\PSWindowsUpdate" -Destination 'C:\Program Files\WindowsPowerShell\Modules\' -Recurse -Force
