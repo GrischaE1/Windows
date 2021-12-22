@@ -15,7 +15,7 @@
 
 ##########################################################################################
 # Name: WindowsUpdate.ps1
-# Version: 0.3
+# Version: 0.4
 # Date: 18.05.2021
 # Created by: Grischa Ernst gernst@vmware.com
 #
@@ -76,6 +76,7 @@
 ##########################################################################################
 #                                    Changelog 
 #
+# 0.4 - added reporting functionality 
 # 0.3 - added multi day Maintenance Window support
 # 0.2 - changed reboot behavior and fixed Maintenance Window detection + small bug fixes
 # 0.1 - Inital creation
@@ -86,15 +87,15 @@
 #
 #define the log folder if needed - otherwise delete it or set it to ""
 param(
-		[string]$LogPath
-	)
+    [string]$LogPath
+)
 
 ##########################################################################################
 #                                    Functions
 
 function Test-MaintenaceWindow {
     
-    $RegSettings  =  Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate'
+    $RegSettings = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate'
 	
 
     #Get current time
@@ -104,74 +105,254 @@ function Test-MaintenaceWindow {
     $Minute = Get-Date -Format mm
 
     #Get start time
-    $MWStartHour = $RegSettings.MWStartTime.Substring(0,2)
-    $MWStartMinute = $RegSettings.MWStartTime.Remove(0,3)
+    $MWStartHour = $RegSettings.MWStartTime.Substring(0, 2)
+    $MWStartMinute = $RegSettings.MWStartTime.Remove(0, 3)
     
     #Get stop time
-    $MWStopHour = $RegSettings.MWStopTime.Substring(0,2)
-    $MWStopMinute = $RegSettings.MWStopTime.Remove(0,3)
+    $MWStopHour = $RegSettings.MWStopTime.Substring(0, 2)
+    $MWStopMinute = $RegSettings.MWStopTime.Remove(0, 3)
 
     #Check if installation day was set - if not, updates will be installed everyday 
-    if($RegSettings.MWDay)
-    {
-      if($RegSettings.MWDay -like "*,*"){$TagetDay = $RegSettings.mwday.Split(",")}
-      else {$TagetDay = $RegSettings.mwday}
+    if ($RegSettings.MWDay) {
+        if ($RegSettings.MWDay -like "*,*") { $TagetDay = $RegSettings.mwday.Split(",") }
+        else { $TagetDay = $RegSettings.mwday }
         
     }
-    else
-    {
-      $TagetDay = $day
+    else {
+        $TagetDay = $day
     }
 
     #Check if current time is in Maintenace Window
     Clear-Variable IsInMaintenaceWindow -Force -ErrorAction SilentlyContinue
     $DayIsInMW = $false
 
-    foreach($MWDay in $TagetDay)
-    {
+    foreach ($MWDay in $TagetDay) {
        
-        if( $day -eq $MWDay)
-        {
+        if ( $day -eq $MWDay) {
             $DayIsInMW = $true
         }   
         
-        if($DayIsInMW -eq $true)
-        {
-            if($Hour -ge $MWStartHour -and $hour -le $MWStopHour)
-            {
-                if((($hour -eq $MWStartHour -and $Minute -gt $MWStartMinute) -and ($hour -eq $MWStopHour -and $Minute -lt $MWStopMinute)))
-                {        
-                    $IsInMaintenaceWindow = $true
+        if ($DayIsInMW -eq $true) {
+            if ($MWStopHour -lt $MWStartHour) {
+                if ($Hour -ge $MWStartHour -or $hour -le $MWStopHour) { 
+                    if ($hour -ge $MWStartHour -and $Minute -ge $MWStartMinute) {
+                        "Case 1"
+                        $MWStopHour = "24"
+                        $MWStopMinute = "00"
+                    }
                 }
-                if($hour -ge $MWStartHour -and $hour -lt $MWStopHour)
-                {
-                    $IsInMaintenaceWindow = $true
+                if ($Hour -ge $MWStartHour -or $hour -le $MWStopHour) { 
+                    if ($hour -le $MWStopHour -and $Minute -le $MWStopMinute) {
+                        "Case 2" 
+                        $MWStopHour = "00"
+                        $MWStopMinute = "00"
+                    }
                 }
-                if(($hour -ge $MWStartHour -and $hour -eq $MWStopHour) -and $Minute -lt $MWStopMinute)
-                {
-                    $IsInMaintenaceWindow = $true
-                }
-            if(!$IsInMaintenaceWindow)
-            {
-                    $IsInMaintenaceWindow = $false
+
             }
-            }else {$IsInMaintenaceWindow = $false}
-        }else {$IsInMaintenaceWindow = $false}
+            if ($Hour -ge $MWStartHour -and $hour -le $MWStopHour) {
+               
+                if ((($hour -eq $MWStartHour -and $Minute -gt $MWStartMinute) -and ($hour -eq $MWStopHour -and $Minute -lt $MWStopMinute))) {        
+                    $IsInMaintenaceWindow = $true
+                }
+                if ($hour -ge $MWStartHour -and $hour -lt $MWStopHour) {
+                    $IsInMaintenaceWindow = $true
+                }
+                if (($hour -ge $MWStartHour -and $hour -eq $MWStopHour) -and $Minute -lt $MWStopMinute) {
+                    $IsInMaintenaceWindow = $true
+                }
+                if (!$IsInMaintenaceWindow) {
+                    $IsInMaintenaceWindow = $false
+                }
+            }
+            else { $IsInMaintenaceWindow = $false }
+        }
+        else { $IsInMaintenaceWindow = $false }
       
     }
     return $IsInMaintenaceWindow
 }
 
 function Test-PendingReboot {
+    param(
+        [bool]$AutomaticReboot
+    )
+
+
     $PendingRestart = $false
     if (Get-ChildItem "HKLM:\Software\Microsoft\Windows\CurrentVersion\Component Based Servicing\RebootPending" -EA Ignore) { $PendingRestart = $true }
     if (Get-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\RebootRequired" -EA Ignore) { $PendingRestart = $true }
 
-    if($PendingRestart -eq $true)
-    {
-        Write-Output "Pending Restart - Device will reboot"
+    if ($PendingRestart -eq $true) {
+        Write-Output "Pending Restart - Device will require reboot"
 
-	shutdown.exe /r /f /t 120
+        if ($AutomaticReboot -eq $true) {
+            shutdown.exe /r /f /t 120
+        }
+    }
+
+    return $PendingRestart
+}
+
+
+function Test-UpdateInstallation {
+    param(
+        [string]$KBNumber,
+        $Installationresult
+    )
+
+    $VerifyKBInstallation = Get-InstalledWindowsUpdates
+
+    $installationtime = Get-Date -Format "MM/dd/yyyy HH:mm"
+ 
+    if ($Installationresult -contains "Installed" -and $VerifyKBInstallation) {
+        "$($KBNumber) installed"
+        New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs' -PropertyType "String" -Name "$($KBNumber) Status" -Value "True" -Force | Out-Null
+        New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs' -PropertyType "String" -Name "$($KBNumber) Date" -Value $installationtime -Force | Out-Null
+    }
+    else {
+        "$($KBNumber) NOT installed"
+        New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs' -PropertyType "String" -Name "$($KBNumber) Status" -Value "False" -Force | Out-Null
+    }
+}
+
+function Get-InstalledWindowsUpdates {
+    #Exported from Get-WUUpdate from the PSWindowsUpdate module
+    $UpdateCollection = @()
+
+    $objSession = [activator]::CreateInstance([type]::GetTypeFromProgID("Microsoft.Update.Session"))#,$Computer))
+    $objSearcher = $objSession.CreateUpdateSearcher()
+    $TotalHistoryCount = $objSearcher.GetTotalHistoryCount()
+   
+    If ($TotalHistoryCount -gt 0) {
+        $objHistory = $objSearcher.QueryHistory(0, $TotalHistoryCount)
+       
+        Foreach ($obj in $objHistory) {
+            $matches = $null
+            $obj.Title -match "KB(\d+)" | Out-Null
+                               
+            If ($matches -eq $null) {
+                Add-Member -InputObject $obj -MemberType NoteProperty -Name KB -Value ""
+            } #End If $matches -eq $null
+            Else {							
+                Add-Member -InputObject $obj -MemberType NoteProperty -Name KB -Value ($matches[0])
+            } #End Else $matches -eq $null
+                               
+            Add-Member -InputObject $obj -MemberType NoteProperty -Name ComputerName -value ""
+                               
+            $obj.PSTypeNames.Clear()
+            $obj.PSTypeNames.Add('PSWindowsUpdate.WUHistory')
+           
+            If ($obj.kb) {				
+                $UpdateCollection += $obj
+            }
+           
+        } #End Foreach $obj in $objHistory
+        Write-Progress -Activity "Get update histry for $Computer" -Status "Completed" -Completed
+    } #End If $TotalHistoryCount -gt 0
+   
+    #Get Windows Updates from WMI
+    $WMIKBs = Get-WmiObject win32_quickfixengineering |  Select-Object HotFixID -ExpandProperty HotFixID
+   
+    #Get Windows Updates from DISM
+    $DISMKBList = dism /online /get-packages | findstr KB 
+   
+    $pattern = '(?<=KB).+?(?=~)'
+    $DISMKBNumbers = [regex]::Matches($DISMKBList, $pattern).Value
+   
+    $DISMKBNumbers = @()  
+    ForEach ($Number in $DISMKBNumbers) {
+        $DISMKBNumbers += "KB$($Number)"
+       
+    }
+   
+    $InstalledKBs = ($UpdateCollection.kb + $WMIKBs + $DISMKBNumbers) | Sort-Object -Unique
+    return $InstalledKBs
+}
+
+function Search-AvailableUpdates {
+    param(
+        $UseWindowsUpdate = $true
+    )
+    
+    #To make sure to overwrite the WSUS settings
+    if ($UseWindowsUpdate -eq $true) {
+        #Add Microsoft Update as Update provider
+        Add-WUServiceManager -ServiceID "7971f918-a847-4430-9279-4a52d1efe18d" -AddServiceFlag 7 -Confirm:$false  | Out-Null
+        $AllUpdates = Get-WindowsUpdate -MicrosoftUpdate -IgnoreReboot
+    }
+    else {
+        #Get all updates with the configured update source
+        $AllUpdates = Get-WindowsUpdate -IgnoreReboot
+    }
+
+    Return $AllUpdates
+}
+
+function Install-AvailableUpdates {
+    param(
+        $DownloadOnly = $false,
+        $KBarticleID,
+        $UseWindowsUpdate = $true
+    )
+    
+
+    if ($DownloadOnly -eq $true) {
+        Write-Output "Start downloading $($KBarticleID)"
+        if ($UseWindowsUpdate -eq $true) {
+            $result = Get-WindowsUpdate -Download -KBArticleID $($KBarticleID) -MicrosoftUpdate -Confirm:$false -IgnoreReboot
+        }
+        if ($UseWindowsUpdate -eq $false) {
+            $result = Get-WindowsUpdate -Download -KBArticleID $($KBarticleID) -Confirm:$false -IgnoreReboot
+        }
+    }
+    if ($DownloadOnly -eq $false) {
+        Write-Output "Start installation of $($KBarticleID)"
+        if ($UseWindowsUpdate -eq $true) {
+            $result = Get-WindowsUpdate -Install -KBArticleID $($KBarticleID) -Confirm:$false -MicrosoftUpdate -IgnoreReboot
+        }
+        if ($UseWindowsUpdate -eq $false) {
+            $result = Get-WindowsUpdate -Install -KBArticleID $($KBarticleID) -Confirm:$false -IgnoreReboot
+        }
+    }
+    return $result
+}
+
+
+function Get-NoninstalledUpdates {
+    $InstalledKBs = Get-InstalledWindowsUpdates
+    $AvailableKBs = (get-windowsupdate -IgnoreReboot).KB
+    $Detectiontime = Get-Date -Format "MM/dd/yyyy HH:mm"
+
+    $Items = Get-Item 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs'
+    $StatusKBs = $Items.GetValueNames() | where { $_ -like "*Status*" }  
+    
+    foreach ($KB in $StatusKBs) { 
+           
+        $NoninstalledUpdates = Get-ItemPropertyValue 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs' -Name $KB  | where { $_ -eq "False" -or $_ -like "*Pending*" }
+        
+        if ($NoninstalledUpdates) {
+            if ($KB -eq "False") {
+                $NonInstalledKB = $KB.Replace(" Status", "")
+            }
+            if ($KB -like "*Pending*") {
+                $NonInstalledKB = $KB.Replace(" Pending installation", "")
+            }
+
+            $KBCheck = $InstalledKBs | Where-Object { $_.HotFixID -eq $NonInstalledKB }
+            $AvailableKBCheck = $AvailableKBs | Where-Object { $_ -eq $NonInstalledKB }
+            $AvailableKBCheck
+            if ($KBCheck) {
+                New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs' -PropertyType "String" -Name "$($NonInstalledKB) Status" -Value "True" -Force | Out-Null
+                New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs' -PropertyType "String" -Name "$($KBNumber) Date" -Value $Detectiontime -Force | Out-Null
+            }
+            elseif ($AvailableKBCheck) {
+                New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs' -PropertyType "String" -Name "$($NonInstalledKB) Status" -Value "Pending installation" -Force | Out-Null
+            }
+            else {
+                New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs' -PropertyType "String" -Name "$($NonInstalledKB) Status" -Value "Not Applicable" -Force | Out-Null
+            }
+        }
     }
 }
 
@@ -179,11 +360,12 @@ function Test-PendingReboot {
 #                                   Define varibales
 
 #define the log folder if needed - otherwise delete it or set it to ""
-if($LogPath){$Log = $LogPath}
+if ($LogPath) { $Log = $LogPath }
 
-if($Log){
-if((Test-Path (Split-Path -Parent $Log)) -eq $false){New-Item (Split-Path -Parent $Log) -ItemType Directory}
-Start-Transcript -Path $Log -Append}
+if ($Log) {
+    if ((Test-Path (Split-Path -Parent $Log)) -eq $false) { New-Item (Split-Path -Parent $Log) -ItemType Directory }
+    Start-Transcript -Path $Log -Append
+}
 Write-Output "###############################################################################"
 Write-Output "Start Windows Update on $(Get-Date -Format "dd/MM/yyyy HH:mm")"
 
@@ -191,240 +373,203 @@ Try { Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force -ErrorAc
 
 #Enable this if you want to install the latest version of PSWindowsUpdate
 <#
-$PackageProvider = Get-PackageProvider -ListAvailable
-$NuGetInstalled = $false
-foreach ($item in $PackageProvider.name)
-{
-   if($item -eq “NuGet”)
-   {
-       $NuGetInstalled = $tru
-   }
-}
-if($NuGetInstalled = $false)
-{
-   Install-PackageProvider NuGet -Force
-}
-else{
-Get-PackageProvider -Name NuGet -Force
-Write-Output “NuGet is already installed”}
-
-$ModuleInstalled = Get-Module PSWindowsUpdate
-if(!$ModuleInstalled)
-{
-   Install-Module -Name PSWindowsUpdate -Force
-}
-else{Write-Output “PSWindowsUpdate Module is already installed”}
-
+    $PackageProvider = Get-PackageProvider -ListAvailable
+    $NuGetInstalled = $false
+    foreach ($item in $PackageProvider.name)
+    {
+    if($item -eq “NuGet”)
+    {
+        $NuGetInstalled = $tru
+    }
+    }
+    if($NuGetInstalled = $false)
+    {
+    Install-PackageProvider NuGet -Force
+    }
 #>
 
 Import-Module PSWindowsUpdate
 
-  #####
-  #Status Codes
-  #------- Update is requested
-  #-D----- Update is downloaded
-  #--I---- Update is installed
-  #---H--  Update is hidden
-  #-----U- Update is uninstallable
-  #------B Update is beta
+#####
+#Status Codes
+#------- Update is requested
+#-D----- Update is downloaded
+#--I---- Update is installed
+#---H--  Update is hidden
+#-----U- Update is uninstallable
+#------B Update is beta
 
 
-  #Get settings from Registry
-  $Settings =  Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate'
+#Get settings from Registry
+$Settings = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate' -ErrorAction SilentlyContinue
 
-  #Hide unwanted updates
-  If($settings.HiddenUpdates)
-  {
-     Hide-WindowsUpdate -KBArticleID $settings.HiddenUpdates -Hide -Confirm:$false
-  }
+#Create Status registry keys
+if (!(Test-Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status')) {
+    New-Item 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -Force | Out-Null
+}
+if (!(Test-Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs')) {
+    New-Item 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs' -Force | Out-Null
+}
 
-  #Allow hidden update again
-  If($settings.UnHiddenUpdates)
-  {
-     UnHide-WindowsUpdate -KBArticleID $settings.UnHiddenUpdates -Confirm:$false
-  }
+#Hide unwanted updates
+If ($settings.HiddenUpdates) {
+    Hide-WindowsUpdate -KBArticleID $settings.HiddenUpdates -Hide -Confirm:$false
+}
+
+#Allow hidden update again
+If ($settings.UnHiddenUpdates) {
+    UnHide-WindowsUpdate -KBArticleID $settings.UnHiddenUpdates -Confirm:$false
+}
   
-  #To make sure to overwrite the WSUS settings
-  if($Settings.UseMicrosoftUpdate -eq $true)
-  {
-    #Add Microsoft Update as Update provider
-    Add-WUServiceManager -ServiceID "7971f918-a847-4430-9279-4a52d1efe18d" -AddServiceFlag 7 -Confirm:$false  | Out-Null
-    $AllUpdates = Get-WindowsUpdate -MicrosoftUpdate -IgnoreReboot
-  }
-  else
-  {
-      #Get all updates with the configured update source
-      $AllUpdates = Get-WindowsUpdate -IgnoreReboot
-  }
+#Get all updates with the configured update source
+$AllUpdates = Search-AvailableUpdates -UseWindowsUpdate $($Settings.UseMicrosoftUpdate)
+  
 
-  #If Download is independent of installation - Download all Updates
-  If($Settings.DirectDownload -eq $True)
-  {
-    Write-Output "Starting Download"
-    #get all updates that are not downloaded
-    $NotDonwloadedUpdates = $AllUpdates | Where-Object {$_.Status -notlike "*D*"}
-    foreach($Update in $NotDonwloadedUpdates)
-    {
-        $UpdateKB = $update.KB
+#Check detected but not installed updates
+Get-NoninstalledUpdates
+
+
+Write-output "Pending Update count: $($AllUpdates.Count)"
+
+#run download and installation if updates are available 
+if ($AllUpdates) {
+    #If Download is independent of installation - Download all Updates
+    If ($Settings.DirectDownload -eq $True) {
+        Write-Output "Starting Download"
+        #get all updates that are not downloaded
+        $NotDonwloadedUpdates = $AllUpdates | Where-Object { $_.Status -notlike "*D*" }
+        foreach ($Update in $NotDonwloadedUpdates) {
+            $UpdateKB = $update.KB
         
-        #Use Microsoft Update as update source
-        if($Settings.UseMicrosoftUpdate -eq $true)
-        {
-            $result = Get-WindowsUpdate -Download -KBArticleID $UpdateKB -MicrosoftUpdate -Confirm:$false -IgnoreReboot
-        }
-        else
-        {
-            $result = Get-WindowsUpdate -Download -KBArticleID $UpdateKB -Confirm:$false -IgnoreReboot
-        }
+            $Result = Install-AvailableUpdates -DownloadOnly $true -KBarticleID $UpdateKB -UseWindowsUpdate $($Settings.UseMicrosoftUpdate)
 
-        #Check if download was successfull
-        if($result.result -contains "Downloaded")
-        {
-            "KB $($UpdateKB) downloaded"
-        }
-        #retry download
-        else
-        {
-            #Use Microsoft Update as update source
-            if($Settings.UseMicrosoftUpdate -eq $true)
-            {
-                $result = Get-WindowsUpdate -ForceDownload -KBArticleID $UpdateKB -MicrosoftUpdate -Confirm:$false -IgnoreReboot
-            }
-            else
-            {
-                $result = Get-WindowsUpdate -ForceDownload -KBArticleID $UpdateKB -Confirm:$false -IgnoreReboot
-            }
-            
-            #Check again download status
-            if($result.result -contains "Downloaded")
-            {
+            #Check if download was successfull
+            if ($result.result -contains "Downloaded") {
                 "KB $($UpdateKB) downloaded"
             }
-            else
-            {
-                "KB $($UpdateKB) NOT downloaded"
+            #retry download
+            else {
+                $Result = Install-AvailableUpdates -DownloadOnly $true -KBarticleID $UpdateKB -UseWindowsUpdate $($Settings.UseMicrosoftUpdate)
+            
+                #Check again download status
+                if ($result.result -contains "Downloaded") {
+                    "KB $($UpdateKB) downloaded"
+                }
+                else {
+                    "KB $($UpdateKB) NOT downloaded"
+                }
             }
         }
+        Write-Output "Download finished"
     }
-    Write-Output "Download finished"
-  }
   
 
-  #Install Updates
-  #Check if Maintenace Window is enabled
-  if($Settings.MaintenaceWindow -eq $true)
-  {
+    #Install Updates
+    #Check if Maintenace Window is enabled
+    if ($Settings.MaintenaceWindow -eq $true) {
   
-    Write-Output "Maintenace Window detected"
-    if([bool](Test-MaintenaceWindow) -eq $true)
-    {
-        Write-Output "Running during Maintenace Window"
-        Test-PendingReboot
+        Write-Output "Maintenace Window detected"
+        if ([bool](Test-MaintenaceWindow) -eq $true) {
+            Write-Output "Running during Maintenace Window"
+            Test-PendingReboot -AutomaticReboot $true | Out-Null
 
-        #Force to use Microsoft update - this will also overwrite current WSUS settings
-        if($Settings.UseMicrosoftUpdate -eq $true)
-        {
-            $InstallableUpdates = Get-WindowsUpdate -MicrosoftUpdate
-            foreach($Update in $InstallableUpdates)
-            {
+            $InstallableUpdates = Search-AvailableUpdates -UseWindowsUpdate $($Settings.UseMicrosoftUpdate)
+            foreach ($Update in $InstallableUpdates) {
                 $UpdateKB = $update.KB
-                
-                if([bool](Test-MaintenaceWindow) -eq $true)
-                {
-                    $Installation =  Install-WindowsUpdate -Install -KBArticleID $UpdateKB -Confirm:$false -MicrosoftUpdate -IgnoreReboot
                     
-                    if($Installation.result -contains "Installed")
-                    {
-                        "$($UpdateKB) installed"
-                    }
-                    else
-                    {
-                        "$($UpdateKB) NOT installed"
-                    }
+                if ([bool](Test-MaintenaceWindow) -eq $true) {
+                    $Installation = Install-AvailableUpdates -DownloadOnly $false -KBarticleID $UpdateKB -UseWindowsUpdate $($Settings.UseMicrosoftUpdate)
+                        
+                    Test-UpdateInstallation -KBNumber $UpdateKB -Installationresult $installation.result
                 }
-                else {break}
+                else { break }
             }
-            if([bool](Test-MaintenaceWindow) -eq $true)
-            {
-                Test-PendingReboot
-            }
-        }
-        #Use configured settings
-        else
-        {
-            $InstallableUpdates = Get-WindowsUpdate 
-            foreach($Update in $InstallableUpdates)
-            {
-                $UpdateKB = $update.KB
         
-                if([bool](Test-MaintenaceWindow) -eq $true)
-                {
-                    $Installation =  Install-WindowsUpdate -Install -KBArticleID $UpdateKB -Confirm:$false -MicrosoftUpdate -IgnoreReboot
-                    
-                    if($Installation.result -contains "Installed")
-                    {
-                        "$($UpdateKB) installed"
-                    }
-                    else
-                    {
-                        "$($UpdateKB) NOT installed"
-                    }
-                }
-                else {break}
-            }
-            if([bool](Test-MaintenaceWindow) -eq $true)
-            {
-                Test-PendingReboot
+            if ([bool](Test-MaintenaceWindow) -eq $true) {
+                Test-PendingReboot -AutomaticReboot $true | Out-Null
             }       
         }
-          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate' -Name 'LastInstallationDate' -Value $(Get-Date -Format "dd/MM/yyyy HH:mm")
-    }
-  }
-  #If no maintenance window is configured, just install the updates at any time
-  else
-  {
-        Write-Output "Starting installation without Maintenace Window"
-        if($Settings.UseMicrosoftUpdate -eq $true)
-        {
-            $InstallableUpdates = Get-WindowsUpdate -MicrosoftUpdate
-            
-            foreach($Update in $InstallableUpdates)
-            {
-                $UpdateKB = $update.KB
-                $Installation =  Install-WindowsUpdate -Install -KBArticleID $UpdateKB -Confirm:$false -MicrosoftUpdate -IgnoreReboot
-            
-                if($Installation.result -contains "Installed")
-                {
-                    "$($UpdateKB) installed"
-                }
-                else
-                {
-                    "$($UpdateKB) NOT installed"
-                }
-            }
-        }
-        else
-        {
-            $InstallableUpdates = Get-WindowsUpdate
-
-            foreach($Update in $InstallableUpdates)
-            {
-                $UpdateKB = $update.KB
-                $Installation =  Install-WindowsUpdate -Install -KBArticleID $UpdateKB -Confirm:$false -MicrosoftUpdate -IgnoreReboot
-            
-                if($Installation.result -contains "Installed")
-                {
-                    "$($UpdateKB) installed"
-                }
-                else
-                {
-                    "$($UpdateKB) NOT installed"
-                }
-            }
-        }
         Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate' -Name 'LastInstallationDate' -Value $(Get-Date -Format "dd/MM/yyyy HH:mm")
-  }
+    }
+  
+    #If no maintenance window is configured, just install the updates at any time
+    else {
+        Write-Output "Starting installation without Maintenace Window"
+
+        $InstallableUpdates = Search-AvailableUpdates -UseWindowsUpdate $($Settings.UseMicrosoftUpdate)
+            
+        foreach ($Update in $InstallableUpdates) {
+            $UpdateKB = $update.KB
+            $Installation = Install-AvailableUpdates -DownloadOnly $false -KBarticleID $UpdateKB -UseWindowsUpdate $($Settings.UseMicrosoftUpdate)
+            
+            Test-UpdateInstallation -KBNumber $UpdateKB -Installationresult $installation.result
+        }
+    
+        Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate' -Name 'LastInstallationDate' -Value $(Get-Date -Format "dd/MM/yyyy HH:mm")
+    }
+}
+
+#Check if  Reboot pending   
+$RebootRequired = Test-PendingReboot -AutomaticReboot $false
+
+if ($RebootRequired -eq $true) {
+    New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "PendingReboot" -Value "True" -Force | Out-Null
+}
+else {
+    New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "PendingReboot" -Value "False" -Force | Out-Null
+}
+
+#Resetting counter
+$UpdateCount = 0
+$UpdateRollupsCount = 0
+$DefinitionUpdatesCount = 0
+$UpgradesCount = 0
+$SecurityUpdatesCount = 0
+$InstallableUpdates = ""
+
+#Check missing updates
+$InstallableUpdates = Search-AvailableUpdates -UseWindowsUpdate $($Settings.UseMicrosoftUpdate)
+ 
+
+if ($InstallableUpdates) {
+    foreach ($update in $InstallableUpdates) {
+        $UpdateCategory = $Update.Categories._NewEnum.name | Select-Object  -First 1
+
+        switch ($UpdateCategory) {
+            "Updates" { $UpdateCount = $UpdateCount + 1 }
+            "Update Rollups" { $UpdateRollupsCount = $UpdateRollupsCount + 1 }
+            "Definition Updates" { $DefinitionUpdatesCount = $DefinitionUpdatesCount + 1 }
+            "Upgrades" { $UpgradesCount = $UpgradesCount + 1 }
+            "Security Updates" { $SecurityUpdatesCount = $SecurityUpdatesCount + 1 }
+        }
+
+        New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status\KBs' -PropertyType "String" -Name "$($update.KB) Status" -Value "Pending installation" -Force | Out-Null
+
+    }
+      
+    New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "Total Missing Updates" -Value $($InstallableUpdates.count) -Force | Out-Null
+    New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "Open Pending Updates" -Value "True" -Force | Out-Null
+}
+else {
+    New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "Total Missing Updates" -Value $($InstallableUpdates.count) -Force | Out-Null
+    New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "Open Pending Updates" -Value "False" -Force | Out-Null
+}
+
+#Reporting the current installation count to the registry
+New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "Pending Updates" -Value $UpdateCount -Force | Out-Null
+New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "Pending Update Rollups" -Value $UpdateRollupsCount -Force | Out-Null
+New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "Pending Definition Updates" -Value $DefinitionUpdatesCount -Force | Out-Null
+New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "Pending Feature Upgrades" -Value $UpgradesCount -Force | Out-Null
+New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "Pending Security Updates" -Value $SecurityUpdatesCount -Force | Out-Null
+
+ 
+
+#Report all installed updates 
+$InstalledUpdates = Get-InstalledWindowsUpdates
+
+New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "Installed KBs" -Value $InstalledUpdates -Force | Out-Null
+New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "Total Installed KBs" -Value $($InstalledUpdates.Count) -Force | Out-Null
 
 Write-Output "Stop Windows Update on $(Get-Date -Format "dd/MM/yyyy HH:mm")"
 Write-Output "###############################################################################"
-if($Log){Stop-Transcript}
+if ($Log) { Stop-Transcript }
