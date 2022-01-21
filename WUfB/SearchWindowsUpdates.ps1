@@ -15,7 +15,7 @@
 
 ##########################################################################################
 # Name: WindowsUpdate.ps1
-# Version: 0.4
+# Version: 0.5
 # Date: 18.05.2021
 # Created by: Grischa Ernst gernst@vmware.com
 #
@@ -76,6 +76,7 @@
 ##########################################################################################
 #                                    Changelog 
 #
+# 0.5 - bugfixing 
 # 0.4 - added reporting functionality 
 # 0.3 - added multi day Maintenance Window support
 # 0.2 - changed reboot behavior and fixed Maintenance Window detection + small bug fixes
@@ -370,25 +371,43 @@ Write-Output "##################################################################
 Write-Output "Start Windows Update on $(Get-Date -Format "dd/MM/yyyy HH:mm")"
 
 Try { Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force -ErrorAction Stop } Catch {}
-
-#Enable this if you want to install the latest version of PSWindowsUpdate
 <#
-    $PackageProvider = Get-PackageProvider -ListAvailable
-    $NuGetInstalled = $false
-    foreach ($item in $PackageProvider.name)
-    {
-    if($item -eq “NuGet”)
-    {
-        $NuGetInstalled = $tru
-    }
-    }
-    if($NuGetInstalled = $false)
-    {
-    Install-PackageProvider NuGet -Force
-    }
-#>
+$PackageProvider = Get-PackageProvider -ListAvailable
+$NuGetInstalled = $false
+foreach ($item in $PackageProvider.name)
+{
+   if($item -eq “NuGet”)
+   {
+       $NuGetInstalled = $tru
+   }
+}
+if($NuGetInstalled = $false)
+{
+   Install-PackageProvider NuGet -Force
+}
+else
+{
+    Get-PackageProvider -Name NuGet -Force
+    Write-Output “NuGet is already installed”
+}
 
-Import-Module PSWindowsUpdate
+$ModuleInstalled = Get-Module PSWindowsUpdate
+if(!$ModuleInstalled)
+{
+   Install-Module -Name PSWindowsUpdate -Force
+}
+else{Write-Output “PSWindowsUpdate Module is already installed”}
+#>
+try
+{
+    Import-Module PSWindowsUpdate -ErrorAction Stop
+}
+catch
+{
+    Write-Output "Module not loaded"
+    Stop-Transcript
+    break
+}
 
 #####
 #Status Codes
@@ -569,6 +588,10 @@ $InstalledUpdates = Get-InstalledWindowsUpdates
 
 New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "Installed KBs" -Value $InstalledUpdates -Force | Out-Null
 New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "Total Installed KBs" -Value $($InstalledUpdates.Count) -Force | Out-Null
+
+#Add / Update the last runtime
+New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Custom\WindowsUpdate\Status' -PropertyType "String" -Name "Last Update Scan" -Value (Get-Date  -Format "dd/MM/yyyy HH:mm") -Force | Out-Null
+
 
 Write-Output "Stop Windows Update on $(Get-Date -Format "dd/MM/yyyy HH:mm")"
 Write-Output "###############################################################################"
